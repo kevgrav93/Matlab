@@ -1,0 +1,5 @@
+***Shaft Design***
+Shaft length = 50 (mm).
+There will be 15 weights on the end of the shaft.
+We assume that the shaft is made of 1100-0 Aluminm alloy.
+Optimized shaft diameter = 15.595 (mm).

@@ -1,0 +1,2 @@
+"Diameter"=15.595
+"Length"=50
