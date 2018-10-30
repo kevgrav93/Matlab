@@ -1,40 +1,47 @@
-function Design_Code(speed, depth, mission_time)
+function Design_Code(horizontal_speed, depth, mission_time)
     %Check if this script is runned directly (not from MAIN.m)
     if ~exist('depth','var')
-        cd Z:\2018\MCG4322\Digital Files\SUB_1A\MATLAB\
-        run Z:\2018\MCG4322\Digital Files\SUB_1A\MATLAB\MAIN.m; %Run MAIN.m instead
+        cd 'Z:\2018\MCG4322A\Digital Files\SUB_1A\Matlab\'
+        run MAIN.m; %Run MAIN.m instead
         return
     end
     
+    %***text file paths***
     %LOG text file to be modified
     log_file = 'Z:\2018\MCG4322A\Digital Files\SUB_1A\Log\SUB_1A_LOG.TXT';
     %Solidworks file paths
     
-    %Enviroment constants
-    pho = 1027; %sea water density
+    %***Enviroment constants***
+    pho = 1027; %sea water average density (m3/kg)
+    g = 9.81; %Gravitational acceleration (m/s^2)
+    p_atm = 101000; %101kpa atmospheric pressure
+    wave_height = 0.5; %0.5m waves (sea state 2 maximum)
 
-    %Submersible constants
+    %***Submersible constants***
+    crew =2; %2 operators
+    life_support_time = 96; %96 hours required CO2 scrubber material
 
-    %Calculations
-    Horizontal_Max_Thrust = Horizontal_Thrust_Max_Speed(speed,pho);
-    disp(Horizontal_Max_Thrust);
+    %***Calculations***
+    Horizontal_Max_Thrust = Horizontal_Thrust_Max_Speed(horizontal_speed,pho);
     Battery_Size = Battery_Size_Calculator(mission_time, Horizontal_Max_Thrust, Horizontal_Max_Thrust);
     
+    Max_pressure = pho*g*depth; %Pressure at maximum depth in Pa.
+    
    
-    %Write the log file (Note: This file is not used by SOLIDWORKS. The
-    %contents of the file is outputted in the GUI. Useful for DEBUGGING
+    %***Write the log file (Note: This file is not used by SOLIDWORKS. Thecontents of the file is outputted in the GUI. Useful for DEBUGGING***
     fid = fopen(log_file,'w+t');
 	fprintf(fid,'***Personal Submersible Design***\n');
     fprintf(fid,strcat('Rated Depth =',32,num2str(depth),' meters.\n'));
-	fprintf(fid,strcat('Maximum Speed =',32,num2str(speed),' knots.\n'));
-    fprintf(fid,strcat('The maximum mission time is =',32,num2str(mission_time),' hours.\n'));
-    fprintf(fid,strcat('The required battery size is =',32,num2str(Battery_Size),' watt-hours.\n'));
+    fprintf(fid,strcat('The pressure at maximum depth is :',32,num2str(Max_pressure/1000),' kPa.\n'));
+	fprintf(fid,strcat('Maximum Speed =',32,num2str(horizontal_speed),' knots.\n'));
+    fprintf(fid,strcat('The maximum mission time is :',32,num2str(mission_time),' hours.\n'));
+    fprintf(fid,strcat('The required battery size is :',32,num2str(Battery_Size),' watt-hours.\n'));
 	fclose(fid);
     
 end
 
-function Max_Thrust = Horizontal_Thrust_Max_Speed(speed, pho)
-    maximum_speed=speed*0.51444444; %knots to m/s
+function Max_Thruster_Power = Horizontal_Thrust_Max_Speed(horizontal_speed, pho)
+    maximum_speed=horizontal_speed*0.51444444; %knots to m/s
     cf_cylinder = 0.0037; %skin friction drag coefficient soft tanks
     cf_sphere = 0.0032; %skin friction drag coefficient pressure hull
     cd_sphere=0.35; %sphere drag coefficient
@@ -48,6 +55,6 @@ function Max_Thrust = Horizontal_Thrust_Max_Speed(speed, pho)
     f_skin_sphere_max = 0.5*cf_sphere*pho*maximum_speed^2*area3;
 
     %Thrust required to keep submersible moving at maximum speed
-    Max_Thrust = f_pressure_sphere_max+2*f_skin_cylinder_max+f_skin_sphere_max; %thrusters thrust required at max speed
-    Max_Thruster_power = power_max_speed
+    power_max_speed = f_pressure_sphere_max+2*f_skin_cylinder_max+f_skin_sphere_max; %thrusters thrust required at max speed
+    Max_Thruster_Power = power_max_speed/4; %4 horizontal thrusters
 end

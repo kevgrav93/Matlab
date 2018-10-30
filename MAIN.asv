@@ -1,3 +1,25 @@
+% =========================================================================
+% =========================================================================
+%mcg4322 CAD CAM                             
+%UNIVERSITY OF OTTAWA      
+% =========================================================================
+% =========================================================================
+
+% Developed by: 
+%   -Kevin Gravel
+%   -Dominic Monette
+%   -Florence Bedard
+%   -Jeanne Monique Seguin
+%   -Nicholas Fekete
+% GROUP: SUB-1A
+% University of Ottawa
+% Mechanical Engineering
+% Latest Revision: 30/10/2018
+
+% =========================================================================
+% SOFTWARE DESCRIPTION
+% =========================================================================
+
 function varargout = MAIN(varargin)
 % MAIN MATLAB code for MAIN.fig
 %      MAIN, by itself, creates a new MAIN or raises the existing
@@ -22,7 +44,7 @@ function varargout = MAIN(varargin)
 
 % Edit the above text to modify the response to help MAIN
 
-% Last Modified by GUIDE v2.5 30-Oct-2018 11:47:21
+% Last Modified by GUIDE v2.5 30-Oct-2018 12:48:46
 
 % Begin initialization code - DO NOT EDIT
 gui_Singleton = 1;
@@ -61,6 +83,13 @@ guidata(hObject, handles);
 %Set the default values of the GUI.
 %Set the figure title with the group identification:
 set(handles.figure1,'Name','Group SUB-1A || MCG4322 2018');
+
+%set logo image
+axes(handles.logo)
+matlabImage = imread('Logo_Uottawa.png');
+image(matlabImage);
+axis off
+axis image
 
 %Add the 'subfunctions' folder to the path so that the design calculations function can
 %be called
@@ -143,11 +172,11 @@ function calculate_Callback(hObject, eventdata, handles)
         Not_MAIN;
     else
     
-    depth = str2double(get(handles.input1, 'string'));
-    speed = str2double(get(handles.input2, 'string'));
-    mission_time = str2double(get(handles.input3, 'string'));
+    depth = str2double(get(handles.input_depth, 'string'));
+    horizontal_speed = str2double(get(handles.input_speed, 'string'));
+    mission_time = str2double(get(handles.input_mission_time, 'string'));
     
-    Design_Code(speed,depth,mission_time);
+    Design_Code(horizontal_speed,depth,mission_time);
     
     %Show the LOG file contents on the GUI.
     log_file = 'Z:\2018\MCG4322A\Digital Files\SUB_1A\Log\SUB_1A_LOG.TXT';
@@ -209,4 +238,86 @@ function input3_CreateFcn(hObject, eventdata, handles)
 %       See ISPC and COMPUTER.
 if ispc && isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor','white');
+end
+
+
+% --- Executes on slider movement.
+function slider_speed_Callback(hObject, eventdata, handles)
+% hObject    handle to slider_speed (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+if(isempty(handles))
+    Not_MAIN();
+else
+    value = round(get(hObject,'Value'),1); %Round the value to one decimal place
+    set(handles.input_speed,'String',num2str(value));
+end
+
+% --- Executes during object creation, after setting all properties.
+function slider_speed_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider_speed (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+
+
+% --- Executes on slider movement.
+function slider_depth_Callback(hObject, eventdata, handles)
+% hObject    handle to slider_depth (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+if(isempty(handles))
+    Not_MAIN();
+else
+    value = round(get(hObject,'Value')); %Round the value to the nearest integer
+    set(handles.input_depth,'String',num2str(value));
+end
+
+% --- Executes during object creation, after setting all properties.
+function slider_depth_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider_depth (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
+end
+
+
+% --- Executes on slider movement.
+function slider_mission_time_Callback(hObject, eventdata, handles)
+% hObject    handle to slider_mission_time (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    structure with handles and user data (see GUIDATA)
+
+% Hints: get(hObject,'Value') returns position of slider
+%        get(hObject,'Min') and get(hObject,'Max') to determine range of slider
+if(isempty(handles))
+    Not_MAIN();
+else
+    value = round(get(hObject,'Value')); %Round the value to the nearest integer
+    set(handles.input_mission_time,'String',num2str(value));
+end
+
+
+% --- Executes during object creation, after setting all properties.
+function slider_mission_time_CreateFcn(hObject, eventdata, handles)
+% hObject    handle to slider_mission_time (see GCBO)
+% eventdata  reserved - to be defined in a future version of MATLAB
+% handles    empty - handles not created until after all CreateFcns called
+
+% Hint: slider controls usually have a light gray background.
+if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
+    set(hObject,'BackgroundColor',[.9 .9 .9]);
 end

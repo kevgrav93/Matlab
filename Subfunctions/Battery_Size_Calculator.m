@@ -1,4 +1,9 @@
-%Battery calculations
+% Latest Revision: 30/10/2018
+
+% =========================================================================
+% Main lithium-ion battery size calculation based on required thruster power, 
+% other electronics current draw and the total mission time 
+% =========================================================================
 function Battery_Size = Battery_Size_Calculator(Mission_Time, Horizontal_Thruster_Power_Max, Vertical_Thruster_Power_Max)
     %Electronics current and voltages
     CO2_Scrubber_Amp =2; %https://www.amronintl.com/ihchytech-carbon-dioxide-scrubber-with-canister-and-bracket-external-speed-control.html

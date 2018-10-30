@@ -1,3 +1,26 @@
+% =========================================================================
+% =========================================================================
+%                           MCG4322A CAD CAM
+%                              FALL 2018
+%                         UNIVERSITY OF OTTAWA 
+%                        MECHANICAL ENGINEERING
+% =========================================================================
+% =========================================================================
+
+% GROUP: SUB-1A
+% Developed by: 
+%   -Kevin Gravel
+%   -Dominic Monette
+%   -Florence Bérard
+%   -Jeanne Monique Séguin
+%   -Nicholas Fekete
+% Latest Revision: 30/10/2018
+
+% =========================================================================
+% Code for the GUI functions. Initialises the GUI and all its elements
+% =========================================================================
+
+%DO NOT MODIFY
 function varargout = MAIN(varargin)
 % MAIN MATLAB code for MAIN.fig
 %      MAIN, by itself, creates a new MAIN or raises the existing
@@ -187,16 +210,6 @@ function terminate_Callback(hObject, eventdata, handles)
 % the MAIN.fig file. The user needs to run the MAIN.m file instead.
 close gcf %closes GUI
 
-function Not_MAIN()
-clc
-h = msgbox('You cannot run the MAIN.fig file directly. Please run the program from the Main.m file instead.','Cannot run the figure...','error','modal');
-uiwait(h);
-disp('You must run the MAIN.m file. Not the MAIN.fig file.');
-disp('To run the MAIN.m file, open it in the editor and press ');
-disp('the green "PLAY" button, or press "F5" on the keyboard.');
-close gcf %closes GUI
-
-
 function input3_Callback(hObject, eventdata, handles)
 % hObject    handle to input3 (see GCBO)
 % eventdata  reserved - to be defined in a future version of MATLAB
@@ -299,3 +312,12 @@ function slider_mission_time_CreateFcn(hObject, eventdata, handles)
 if isequal(get(hObject,'BackgroundColor'), get(0,'defaultUicontrolBackgroundColor'))
     set(hObject,'BackgroundColor',[.9 .9 .9]);
 end
+
+function Not_MAIN()
+clc
+h = msgbox('You cannot run the MAIN.fig file directly. Please run the program from the Main.m file instead.','Cannot run the figure...','error','modal');
+uiwait(h);
+disp('You must run the MAIN.m file. Not the MAIN.fig file.');
+disp('To run the MAIN.m file, open it in the editor and press ');
+disp('the green "PLAY" button, or press "F5" on the keyboard.');
+close gcf %closes GUI
